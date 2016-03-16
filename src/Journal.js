@@ -1,4 +1,5 @@
-var dirname = require('path').dirname;
+var path = require('path');
+var dirname = path.dirname;
 var spawn = require('child_process').spawn;
 var moment = require('moment');
 var touch = require('touch');
@@ -9,7 +10,7 @@ function Journal(config) {
 }
 
 Journal.prototype.open = function () {
-  var filename = this.config.path + '/' + moment().format('YYYY/MM/DD') + '.md';
+  var filename = this.config.path.replace(/^~/, process.env.HOME) + '/' + moment().format('YYYY/YYYY-MM-DD') + '.md';
   console.log(filename);
   mkdirp.sync(dirname(filename));
   touch.sync(filename);
